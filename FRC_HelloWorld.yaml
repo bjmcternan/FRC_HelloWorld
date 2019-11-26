@@ -23,7 +23,7 @@ Children:
           default: '2'
           name: CAN ID
           validators: *id002
-          value: '17'
+          value: '0'
       Base: Talon SRX
       Name: TalonRight
     Properties:
@@ -46,18 +46,16 @@ Children:
   - Children:
     - Children: []
       Properties:
+        Sensitivity: !!robotbuilder.data.properties.DoubleProperty {default: 0.007,
+          name: Sensitivity, validators: null, value: 0.007}
         Input Channel (Analog): !!robotbuilder.data.properties.ChoicesProperty
-          choices: ['0', '1', '2', '3', '4', '5', '6', '7']
+          choices: ['0', '1']
           default: '0'
           name: Input Channel (Analog)
           validators: [AnalogInput]
           value: '0'
-        Volts Per G: !!robotbuilder.data.properties.DoubleProperty {default: '0',
-          name: Volts Per G, validators: null, value: 0.0}
-        Zero G Volts: !!robotbuilder.data.properties.DoubleProperty {default: 2.5,
-          name: Zero G Volts, validators: null, value: 2.5}
-      Base: AnalogAccelerometer
-      Name: AxisSensor
+      Base: AnalogGyro
+      Name: AnalogGyro
     Properties:
       Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Send to SmartDashboard, validators: null, value: false}
@@ -97,10 +95,10 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: None}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: []
+        default: &id004 []
         name: Parameter presets
         validators: null
-        value: []
+        value: *id004
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
@@ -133,4 +131,4 @@ Properties:
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Autonomous Command}
 Base: Robot
-Name: test
+Name: FRC_HelloWorld
