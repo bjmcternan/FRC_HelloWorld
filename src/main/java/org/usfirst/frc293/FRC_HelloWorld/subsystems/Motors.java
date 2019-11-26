@@ -49,7 +49,7 @@ public class Motors extends Subsystem {
         
         
         
-        talonRight = new WPI_TalonSRX(0);
+        talonRight = new WPI_TalonSRX(17);
         
         
         
@@ -76,11 +76,11 @@ public class Motors extends Subsystem {
         ////Adjust motor speeds depending on G sensors
         //if sensor is negative rotate robot left else rotate right
         if(gSensorY < LEFT_DEADZONE ) { //Rotate left
-            System.out.printf("Rotating left at " + String.format("%0.2f", Math.abs(gSensorY)));
+            System.out.println("Rotating left at " + Math.abs(gSensorY));
             talonRight.set(0);
             talonLeft.set(Math.abs(gSensorY));
-        } else if(gSensorY < RIGHT_DEADZONE ) { //Rotate right
-            System.out.printf("Rotating right at " + String.format("%0.2f", Math.abs(gSensorY)));
+        } else if(gSensorY > RIGHT_DEADZONE ) { //Rotate right
+            System.out.println("Rotating right at " + Math.abs(gSensorY));
             talonRight.set(Math.abs(gSensorY));
             talonLeft.set(0);
         } else { //Sensor is in deadzone, turn off motors
