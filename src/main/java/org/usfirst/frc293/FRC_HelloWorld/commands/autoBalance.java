@@ -43,7 +43,10 @@ public class autoBalance extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+        //get the balance sensor value from the balance subsystem
         double motorSpeed = Robot.balance.getBalanceSensor();
+
+        //Set the balance motor speed
         Robot.balance.setMotorSpeed(motorSpeed);
     }
 

@@ -43,8 +43,10 @@ public class manualBalance extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        double motorSpeed = Robot.oi.joystickMain.getX();
+        //get the current joystick X axis value
+        double motorSpeed = Robot.oi.joystickMain.getX(); 
 
+        //Set the balance motor speed
         Robot.balance.setMotorSpeed(motorSpeed);
     }
 
