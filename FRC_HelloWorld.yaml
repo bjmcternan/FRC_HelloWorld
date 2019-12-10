@@ -7,25 +7,29 @@ Children:
     - Children: []
       Properties:
         CAN ID: !!robotbuilder.data.properties.ChoicesProperty
-          choices: &id001 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-            '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22',
-            '23', '24', '25', '26', '27', '28', '29', '30', '31']
+          choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
+            '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23',
+            '24', '25', '26', '27', '28', '29', '30', '31']
           default: '2'
           name: CAN ID
-          validators: &id002 [CANID]
+          validators: [CANID]
           value: '16'
       Base: Talon SRX
-      Name: talonLeft
+      Name: talon
     - Children: []
       Properties:
-        CAN ID: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id001
-          default: '2'
-          name: CAN ID
-          validators: *id002
-          value: '17'
-      Base: Talon SRX
-      Name: TalonRight
+        Input Channel (Analog): !!robotbuilder.data.properties.ChoicesProperty
+          choices: ['0', '1', '2', '3', '4', '5', '6', '7']
+          default: '0'
+          name: Input Channel (Analog)
+          validators: [AnalogInput]
+          value: '0'
+        Volts Per G: !!robotbuilder.data.properties.DoubleProperty {default: '0',
+          name: Volts Per G, validators: null, value: 0.0}
+        Zero G Volts: !!robotbuilder.data.properties.DoubleProperty {default: 2.5,
+          name: Zero G Volts, validators: null, value: 2.5}
+      Base: AnalogAccelerometer
+      Name: analogGSensor
     Properties:
       Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Send to SmartDashboard, validators: null, value: false}
@@ -58,7 +62,7 @@ Children:
           validators: null
           value: []
         Button: !!robotbuilder.data.properties.ChoicesProperty
-          choices: &id003 ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
+          choices: &id001 ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
             '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23',
             '24', '25', '26', '27', '28', '29', '30', '31', '32']
           default: '1'
@@ -69,14 +73,14 @@ Children:
           default: None
           name: Command
           type: Command
-          validators: &id004 [TypeDropdownSelected]
-          value: setManualMode
+          validators: &id002 [TypeDropdownSelected]
+          value: manualBalance
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
-          choices: &id005 [whileHeld, whenPressed, whenReleased]
+          choices: &id003 [whileHeld, whenPressed, whenReleased]
           default: whileHeld
           name: When to Run
           validators: null
-          value: whileHeld
+          value: whenPressed
       Base: Joystick Button
       Name: manualMode
     - Children: []
@@ -89,7 +93,7 @@ Children:
           validators: null
           value: []
         Button: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id003
+          choices: *id001
           default: '1'
           name: Button
           validators: null
@@ -98,14 +102,14 @@ Children:
           default: None
           name: Command
           type: Command
-          validators: *id004
-          value: setAutoMode
+          validators: *id002
+          value: autoBalance
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id005
+          choices: *id003
           default: whileHeld
           name: When to Run
           validators: null
-          value: whileHeld
+          value: whenPressed
       Base: Joystick Button
       Name: autoMode
     Properties:
@@ -157,14 +161,14 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: balance}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: []
+        default: &id004 []
         name: Parameter presets
         validators: null
-        value: []
+        value: *id004
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
-    Name: setManualMode
+    Name: autoBalance
   - Children: []
     Properties:
       Autonomous Selection: !!robotbuilder.data.properties.BooleanProperty {default: false,
@@ -179,14 +183,14 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: balance}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: []
+        default: &id005 []
         name: Parameter presets
         validators: null
-        value: []
+        value: *id005
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
-    Name: setAutoMode
+    Name: manualBalance
   Properties: {}
   Base: Commands
   Name: Commands
